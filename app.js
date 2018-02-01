@@ -1,18 +1,19 @@
-var express      = require('express');
-var path         = require('path');
-var favicon      = require('static-favicon');
-var logger       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
-var load         = require('express-load');
-var mongoose     = require('mongoose');
-var flash 		 = require('express-flash');
-var expressValidator = require('express-validator');
-var app 		 = express();
+var express      		= require('express'),
+	path         		= require('path'),
+	favicon      		= require('static-favicon'),
+	logger       		= require('morgan'),
+	cookieParser 		= require('cookie-parser'),
+	bodyParser   		= require('body-parser'),
+	session      		= require('express-session'),
+	load         		= require('express-load'),
+	mongoose     		= require('mongoose'),
+	flash 		 		= require('express-flash'),
+	expressValidator	= require('express-validator'),
+	app 		 		= express();
 
 //conectar ao banco mongodb
-mongoose.connect('mongodb://localhost/acadtec2', function(err){
+//mongoose.connect('mongodb://localhost/acadtec', function(err){
+mongoose.connect('mongodb://marllon.mfb@gmail.com:vulcano2210@ds121898.mlab.com:21898/bigbig', function(err){
 	if (err){
     	console.log('Erro ao conectar no mongodb: '+err);
   	}
@@ -34,11 +35,13 @@ app.use(flash());
 
 load('models').then('controllers').then('routes').into(app);
 
+var port = process.env.PORT || 5000;
+
 //middleware
 var erros = require('./middleware/erros');
 app.use(erros.notfound);
 app.use(erros.serverError);
 
-app.listen(3000, function() {
-    console.log('Express server listening on port 3000');
+app.listen(port, function() {
+    console.log('Express server listening on port: ' + port);
 });

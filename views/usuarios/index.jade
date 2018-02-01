@@ -31,10 +31,13 @@ block content
 						td #{valor.email}
 						td #{moment(valor.data_cad).format('DD/MM/YYYY')}
 						td
-							a(href="/usuarios/edit/#{valor._id}", title="Editar", class="btn btn-info")
+							a(href="/usuarios/show/#{valor._id}", title="Visualizar", class="btn btn-primary")
+								span(class="glyphicon glyphicon-search")
+							span &nbsp;
+							a(href="/usuarios/update/#{valor._id}", title="Editar", class="btn btn-info")
 								span(class="glyphicon glyphicon-pencil")
 							span &nbsp;
-							a(href="/usuarios/show/#{valor._id}", title="Editar", class="btn btn-primary")
-								span(class="glyphicon glyphicon-search")
+							a(href="javascript: Excluir('#{valor._id}')", title="Excluir", class="btn btn-danger")
+								span(class="glyphicon glyphicon-trash")
 	else
 		p Nenhum registro encontrado!

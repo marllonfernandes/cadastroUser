@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+	h1 Atualizar Usuários
+	if messages.erro
+		br
+		div(class="alert alert-danger")
+			each msg in messages.erro
+				b= msg
+				br
+
+	form(method="POST", action="/usuarios/update/#{usuario._id}", role="form")
+		.form-group
+			label Nome
+			input(type="text", class="form-control", placeholder="Nome", name="nome", value="#{usuario.nome || ''}", autofocus)
+		.form-group
+			label Blog
+			input(type="text", class="form-control", placeholder="Blog", name="blog", value="#{usuario.blog || ''}")
+		.form-group
+			label E-mail
+			input(type="text", class="form-control", placeholder="E-mail", name="email", value="#{usuario.email || ''}")
+		//- .form-group
+		//- 	label Senha
+		//- 	input(type="password", class="form-control", placeholder="Senha", name="password")
+		//- .form-group
+		//- 	label Confirmar Senha
+		//- 	input(type="password", class="form-control", placeholder="Confirmar Senha", name="passwordConfirmation")
+		button(type="submit", class="btn btn-success") Salvar
+	br
+	a(href="/usuarios") Voltar

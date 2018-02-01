@@ -47,6 +47,62 @@ module.exports = function(app){
 			}						
 		},
 
+		salveUpd: function(req,res) {
+			Usuario.findById(req.params.id, function(err,data){
+				var model = data;
+				model.nome     = req.body.nome;
+				model.blog     = req.body.blog;
+				model.email    = req.body.email;
+				if(err){
+					req.flash('erro', 'Erro ao carregar usuário: '+err);
+					res.redirect('/usuarios');
+				}else{
+					model.save(function(err){				 
+						if(err){						
+							req.flash('erro', err);
+							  res.render('usuarios/update', {usuario: model});
+						}else{
+							req.flash('info','Usuário atualizado com sucesso!');
+							res.redirect('/usuarios');
+						}				
+					});
+				}
+			});
+		},
+
+		update: function(req,res) {
+			Usuario.findById(req.params.id, function(err,data){
+				if(err){
+					req.flash('erro', 'Erro ao carregar usuário: '+err);
+					res.redirect('/usuarios');
+				}else{
+					res.render('usuarios/update',{usuario: data, moment: moment});
+				}
+			});
+		},
+
+		delete: function(req,res) {
+			Usuario.findById(req.params.id, function(err,data){
+				var model = data;
+				if(err){
+					req.flash('erro', 'Erro ao carregar usuário: '+err);
+					res.redirect('/usuarios');
+				}else{
+					model.remove(function(err){				 
+						if(err){
+							res.json(400,'Erro ao excluir usuário ' + err);
+							// req.flash('erro', err);
+							// res.render('usuarios/delete', {usuario: model});
+						}else{
+							res.json(200,'Usuário excluido com sucesso!');
+							// req.flash('info','Usuário excluido com sucesso!');
+							// res.redirect('/usuarios');
+						}				
+					});
+				}
+			});
+		},
+
 		show: function(req,res){
 			Usuario.findById(req.params.id, function(err,data){
 				if(err){
