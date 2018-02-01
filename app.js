@@ -15,7 +15,7 @@ var express      		= require('express'),
 //mongoose.connect('mongodb://localhost/acadtec', function(err){
 mongoose.connect('mongodb://marllon.mfb@gmail.com:vulcano2210@ds121898.mlab.com:21898/bigbig', function(err){
 	if (err){
-    	console.log('Erro ao conectar no mongodb: '+err);
+    	console.log('Erro ao conectar no mongodb, verifique: '+err);
   	}
 });
 
